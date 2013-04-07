@@ -11,7 +11,7 @@ class InvfoxAPI {
 	function assurePartner($data) {
 		$res = $this->api->call('partner', 'assure', $data);
 		if ($res->isErr()) {
-			// echo 'error' . $res->getErr();
+			echo 'error' . $res->getErr();
 		}
 		return $res;
 	}

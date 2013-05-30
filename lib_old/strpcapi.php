@@ -5,10 +5,7 @@ class StrpcAPI {
   var $apitoken = "";
   var $domain = "";
   var $debugMode = false;
-  var $debugHook = "StrpcAPI::trace";
   
-  static function trace($x) { echo $x; }
-
   function StrpcAPI($token, $domain, $debugMode=false) {
     $this->apitoken = $token;
     $this->domain = $domain;
@@ -30,16 +27,16 @@ class StrpcAPI {
     $result = '';
     $fp = fsockopen ("ssl://{$this->domain}", 443, $errno, $errstr, 30);
     if (!$fp) {
-      call_user_func($this->debugHook, "HTTP Error");
+      echo "HTTP Error";
     } else {
-      if ($this->debugMode) call_user_func($this->debugHook, "<br/><div class='type'>request</div><pre class='debug'>".print_r($header . $data,true)."</pre>");
+      if ($this->debugMode) echo "<br/><div class='type'>request</div><pre class='debug'>".print_r($header . $data,true)."</pre>";
       fputs ($fp, $header . $data);
       while (!feof($fp)) {
 	$result .= fgets ($fp, 128);
       }
       fclose ($fp);
     }
-    if ($this->debugMode) call_user_func($this->debugHook, "<br/><div class='type'>request</div><pre class='debug'>".print_r($result,true)."</pre>");
+    if ($this->debugMode) echo "<br/><div class='type'>request</div><pre class='debug'>".print_r($result,true)."</pre>";
     $resultD = str_replace("'", '"', trim(substr($result, strpos($result, "\r\n\r\n") + 4)));
     return new StrpcRes(json_decode($resultD, true));
     
@@ -66,13 +63,13 @@ class StrpcRes {
     $this->res = $res;
   }
   
-  function isErr() { return false; } /// TODO -- look at HTTP response codes for errors (like validation, ect..) and communicate this out !!!!!!!!!!!!!!!!!!!!!!!!!!
+  function isErr() { return $this->res[0] != 'ok'; } /// TODO -- look at HTTP response codes for errors (like validation, ect..) and communicate this out
   
-  function isOk() { return true; }
+  function isOk() { return $this->res[0] == 'ok'; }
   
   function getErr() { return print_r($this->res, true); }
   
-  function getData() { return $this->res[0]; }
+  function getData() { return $this->res[1]; }
   
 }
 ?>

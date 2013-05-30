@@ -4,20 +4,6 @@
 // Example of use for InvoiceFox library
 //
 
-
-require '../bin/_cart_f.php';
-require '../bin/_cart_purchase_f.php';
-require '../bin/_cart_download_a.php';
-require '../bin/pulp/PayPalIPN.php';
-require '../bin/pulp/Http.php';
-
-
-$cart = new Cart_f();
-$cartDownload = new CartDownload_a();
-$cartPurchase = new CartPurchase_f();
-
-//load invoicefox api
-
 require '../bin/invfoxAPI/lib/strpcapi.php';
 require '../bin/invfoxAPI/lib/invfoxapi.php';
 

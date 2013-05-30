@@ -1,5 +1,11 @@
-#InvoiceFox APi :: php
+##InvoiceFox APi :: php
 
-Samples, explorer and library to interface few basic methods of InvoiceFox API.
+Examples, tester and library which interfaces few basic methods of InvoiceFox API.
 
-load to http server and try loading api-tester.html in browser. It can help you test and simulate any API calls.
+
+###How to start
+
+To start load files to a http server and try loading api-tester.html in your browser. 
+
+With that, you can easily simulate a call to any InvoiceFox API function. Don't forget 
+to first set your API token in the upper right corner.
